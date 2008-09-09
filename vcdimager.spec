@@ -1,7 +1,7 @@
 Summary: VideoCD (pre-)mastering and ripping tool
 Name: vcdimager
 Version: 0.7.23
-Release: 7%{?dist}
+Release: 7%{?dist}.1
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://www.vcdimager.org/
@@ -13,7 +13,7 @@ BuildRequires: libcdio-devel >= 0.72
 BuildRequires: libxml2-devel >= 2.3.8
 BuildRequires: zlib-devel
 BuildRequires: pkgconfig >= 0.9
-BuildRequires: popt-devel
+BuildRequires: popt
 
 %description
 VCDImager allows you to create VideoCD BIN/CUE CD images from MPEG
@@ -99,6 +99,9 @@ fi
 
 
 %changelog
+* Tue Sep 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7.1
+- s/popt-devel/popt/ for EL 
+
 * Sat Aug 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7
 - merge a few bits from livna spec
 
