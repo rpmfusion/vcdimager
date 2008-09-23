@@ -1,19 +1,21 @@
 Summary: VideoCD (pre-)mastering and ripping tool
 Name: vcdimager
 Version: 0.7.23
-Release: 7%{?dist}.1
+Release: 8%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
-URL: http://www.vcdimager.org/
+URL: http://www.gnu.org/software/vcdimager/
 Source: ftp://ftp.gnu.org/pub/gnu/vcdimager/vcdimager-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-Requires(post): info, /sbin/ldconfig
+Requires(post): info
 Requires(preun): info
 BuildRequires: libcdio-devel >= 0.72
 BuildRequires: libxml2-devel >= 2.3.8
 BuildRequires: zlib-devel
 BuildRequires: pkgconfig >= 0.9
-BuildRequires: popt
+BuildRequires: popt-devel
+
+Requires: %{name}-libs = %{version}-%{release}
 
 %description
 VCDImager allows you to create VideoCD BIN/CUE CD images from MPEG
@@ -24,12 +26,23 @@ Also included is VCDRip which does the reverse operation, that is to
 rip MPEG streams from images or burned VideoCDs and to show
 information about a VideoCD.
 
+%package libs
+Summary:        Libraries for %{name}
+Group:          System Environment/Libraries
+Requires:       %{name} = %{version}-%{release}
+# Introduced in F-9 to solve multilibs transition
+Obsoletes:      vcdimager < 0.7.23-8
+
+%description libs
+The %{name}-libs package contains shared libraries for %{name}.
 
 %package devel
 Summary: Header files and static library for VCDImager
 Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libs = %{version}-%{release}
+
 Requires: pkgconfig
+Requires: libcdio-devel
 
 %description devel
 VCDImager allows you to create VideoCD BIN/CUE CD images from mpeg
@@ -51,7 +64,9 @@ applications that will use VCDImager.
 
 %install
 %{__rm} -rf %{buildroot}
-%{__make} DESTDIR=%{buildroot} install
+%{__make} DESTDIR=%{buildroot} install INSTALL="install -p"
+find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
+
 # Sometimes this file gets created... but we don't want it!
 %{__rm} -f %{buildroot}%{_infodir}/dir
 
@@ -60,8 +75,9 @@ applications that will use VCDImager.
 %{__rm} -rf %{buildroot}
 
 
+%post libs -p /sbin/ldconfig
+
 %post
-/sbin/ldconfig
 for infofile in vcdxrip.info vcdimager.info vcd-info.info; do
   /sbin/install-info %{_infodir}/${infofile} %{_infodir}/dir 2>/dev/null || :
 done
@@ -74,7 +90,7 @@ if [ $1 -eq 0 ]; then
   done
 fi
 
-%postun -p /sbin/ldconfig
+%postun libs -p /sbin/ldconfig
 
 
 %files
@@ -82,25 +98,28 @@ fi
 %doc AUTHORS BUGS ChangeLog* COPYING FAQ NEWS README THANKS TODO
 %doc frontends/xml/videocd.dtd
 %{_bindir}/*
-%{_libdir}/libvcdinfo.so.*
 %{_infodir}/vcdxrip.info*
 %{_infodir}/vcdimager.info*
 %{_infodir}/vcd-info.info*
-#{_infodir}/vcddump.info*
 %{_mandir}/man1/*
+
+%files libs
+%defattr(-,root,root,-)
+%{_libdir}/libvcdinfo.so.*
 
 %files devel
 %defattr(-,root,root,-)
 %doc HACKING
 %{_includedir}/libvcd/
-%exclude %{_libdir}/libvcdinfo.la
 %{_libdir}/libvcdinfo.so
 %{_libdir}/pkgconfig/libvcdinfo.pc
 
 
 %changelog
-* Tue Sep 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7.1
-- s/popt-devel/popt/ for EL 
+* Thu Sep  4 2008 kwizart < kwizart at gmail.com > - 0.7.23-8
+- Fix URL
+- vcdimager-devel Requires libcdio-devel
+- Split libs (multilibs compliance)
 
 * Sat Aug 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7
 - merge a few bits from livna spec
