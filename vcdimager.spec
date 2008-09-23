@@ -13,7 +13,7 @@ BuildRequires: libcdio-devel >= 0.72
 BuildRequires: libxml2-devel >= 2.3.8
 BuildRequires: zlib-devel
 BuildRequires: pkgconfig >= 0.9
-BuildRequires: popt-devel
+BuildRequires: popt
 
 Requires: %{name}-libs = %{version}-%{release}
 
@@ -120,6 +120,7 @@ fi
 - Fix URL
 - vcdimager-devel Requires libcdio-devel
 - Split libs (multilibs compliance)
+- BR popt instead of popt-devel in EL-5
 
 * Sat Aug 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7
 - merge a few bits from livna spec
