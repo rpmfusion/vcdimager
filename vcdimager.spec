@@ -30,7 +30,7 @@ information about a VideoCD.
 Summary:        Libraries for %{name}
 Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
-# Introduced in F-9 to solve multilibs transition
+# Introduced in EL-5 to solve multilibs transition
 Obsoletes:      vcdimager < 0.7.23-8
 
 %description libs
@@ -120,7 +120,9 @@ fi
 - Fix URL
 - vcdimager-devel Requires libcdio-devel
 - Split libs (multilibs compliance)
-- BR popt instead of popt-devel in EL-5
+
+* Tue Sep 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7.1
+- s/popt-devel/popt/ for EL
 
 * Sat Aug 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7
 - merge a few bits from livna spec
