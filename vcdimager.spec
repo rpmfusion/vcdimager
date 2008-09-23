@@ -120,9 +120,7 @@ fi
 - Fix URL
 - vcdimager-devel Requires libcdio-devel
 - Split libs (multilibs compliance)
-
-* Tue Sep 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7.1
-- s/popt-devel/popt/ for EL
+- BR popt instead of popt-devel in EL-5
 
 * Sat Aug 09 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> 0.7.23-7
 - merge a few bits from livna spec
