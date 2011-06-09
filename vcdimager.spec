@@ -1,7 +1,7 @@
 Summary: VideoCD (pre-)mastering and ripping tool
 Name: vcdimager
-Version: 0.7.23
-Release: 13%{?dist}.1
+Version: 0.7.24
+Release: 1%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://www.gnu.org/software/vcdimager/
@@ -116,6 +116,9 @@ fi
 
 
 %changelog
+* Thu Jun 09 2011 Nicolas Chauvet <kwizart@gmail.com> - 0.7.24-1
+- Update to 0.7.24
+
 * Sun Jan 24 2010 Nicolas Chauvet <kwizart@fedoraproject.org> - 0.7.23-13
 - Rebuild for libcdio
 
