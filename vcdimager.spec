@@ -1,12 +1,13 @@
 Summary: VideoCD (pre-)mastering and ripping tool
 Name: vcdimager
 Version: 0.7.24
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://www.gnu.org/software/vcdimager/
 Source: ftp://ftp.gnu.org/pub/gnu/vcdimager/vcdimager-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+Requires: %{name}-libs = %{version}-%{release}
 Requires(post): info
 Requires(preun): info
 BuildRequires: libcdio-devel >= 0.72
@@ -14,8 +15,6 @@ BuildRequires: libxml2-devel >= 2.3.8
 BuildRequires: zlib-devel
 BuildRequires: pkgconfig >= 0.9
 BuildRequires: popt-devel
-
-Requires: %{name}-libs = %{version}-%{release}
 
 %description
 VCDImager allows you to create VideoCD BIN/CUE CD images from MPEG
@@ -40,7 +39,6 @@ The %{name}-libs package contains shared libraries for %{name}.
 Summary: Header files and static library for VCDImager
 Group: Development/Libraries
 Requires: %{name}-libs = %{version}-%{release}
-
 Requires: pkgconfig
 Requires: libcdio-devel
 
@@ -59,20 +57,20 @@ applications that will use VCDImager.
 
 %build
 %configure --disable-static --disable-dependency-tracking
-%{__make} %{?_smp_mflags}
+make %{?_smp_mflags}
 
 
 %install
-%{__rm} -rf %{buildroot}
-%{__make} DESTDIR=%{buildroot} install INSTALL="install -p"
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install INSTALL="install -p"
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 # Sometimes this file gets created... but we don't want it!
-%{__rm} -f %{buildroot}%{_infodir}/dir
+rm -f %{buildroot}%{_infodir}/dir
 
 
 %clean
-%{__rm} -rf %{buildroot}
+rm -rf %{buildroot}
 
 
 %post libs -p /sbin/ldconfig
@@ -116,6 +114,9 @@ fi
 
 
 %changelog
+* Tue Apr 17 2012 Matthias Saou <matthias@saou.eu> 0.7.24-4
+- Minor spec file cleanups.
+
 * Wed Jan 25 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.7.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
