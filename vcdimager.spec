@@ -1,7 +1,7 @@
 Summary: VideoCD (pre-)mastering and ripping tool
 Name: vcdimager
 Version: 0.7.24
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://www.gnu.org/software/vcdimager/
@@ -36,7 +36,7 @@ Obsoletes:      vcdimager < 0.7.23-8
 The %{name}-libs package contains shared libraries for %{name}.
 
 %package devel
-Summary: Header files and static library for VCDImager
+Summary: Header files and library for VCDImager
 Group: Development/Libraries
 Requires: %{name}-libs = %{version}-%{release}
 Requires: pkgconfig
@@ -47,7 +47,7 @@ VCDImager allows you to create VideoCD BIN/CUE CD images from mpeg
 files which can be burned with cdrdao or any other program capable of
 burning BIN/CUE files.
 
-This package contains the header files and a static library to develop
+This package contains the header files and a library to develop
 applications that will use VCDImager.
 
 
@@ -114,6 +114,9 @@ fi
 
 
 %changelog
+* Wed May 02 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.7.24-5
+- Remove static statement in the devel sub-package - rfbz#2312
+
 * Tue Apr 17 2012 Matthias Saou <matthias@saou.eu> 0.7.24-4
 - Minor spec file cleanups.
 
