@@ -1,7 +1,7 @@
 Summary: VideoCD (pre-)mastering and ripping tool
 Name: vcdimager
 Version: 0.7.24
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://www.gnu.org/software/vcdimager/
@@ -114,6 +114,9 @@ fi
 
 
 %changelog
+* Fri Feb 21 2014 Nicolas Chauvet <kwizart@gmail.com> - 0.7.24-7
+- Rebuilt
+
 * Wed Jan 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.7.24-6
 - Rebuilt for new libcdio
 
