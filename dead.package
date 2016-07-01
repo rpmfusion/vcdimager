@@ -1,1 +1,5 @@
 VCD is a deprecated technology rfbz#4010
+dnf repoquery --whatrequires vcdimager --source --alldeps --available
+devede
+dnf repoquery --whatrequires vcdimager-libs --source --alldeps --available
+xine-lib
