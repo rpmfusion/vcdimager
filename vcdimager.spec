@@ -1,11 +1,11 @@
 Summary: VideoCD (pre-)mastering and ripping tool
-Name: vcdimager
-Version: 0.7.24
-Release: 13%{?dist}
+Name:    vcdimager
+Version: 2.0.1
+Release: 1%{?dist}
 License: GPLv2+
-Group: Applications/Multimedia
-URL: http://www.gnu.org/software/vcdimager/
-Source: ftp://ftp.gnu.org/pub/gnu/vcdimager/vcdimager-%{version}.tar.gz
+Group:   Applications/Multimedia
+URL:     http://www.gnu.org/software/vcdimager/
+Source:  ftp://ftp.gnu.org/pub/gnu/vcdimager/vcdimager-%{version}.tar.gz
 
 BuildRequires: libcdio-devel >= 0.72
 BuildRequires: libxml2-devel >= 2.3.8
@@ -13,8 +13,8 @@ BuildRequires: zlib-devel
 BuildRequires: pkgconfig >= 0.9
 BuildRequires: popt-devel
 
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires(post): info
+Requires:        %{name}-libs%{?_isa} = %{version}-%{release}
+Requires(post):  info
 Requires(preun): info
 
 
@@ -28,15 +28,15 @@ rip MPEG streams from images or burned VideoCDs and to show
 information about a VideoCD.
 
 %package libs
-Summary:        Libraries for %{name}
-Group:          System Environment/Libraries
+Summary: Libraries for %{name}
+Group:   System Environment/Libraries
 
 %description libs
 The %{name}-libs package contains shared libraries for %{name}.
 
 %package devel
-Summary: Header files and library for VCDImager
-Group: Development/Libraries
+Summary:  Header files and library for VCDImager
+Group:    Development/Libraries
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 Requires: libcdio-devel
@@ -51,12 +51,12 @@ applications that will use VCDImager.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
 %configure --disable-static --disable-dependency-tracking
-%make_build
+%make_build V=1
 
 
 %install
@@ -106,6 +106,9 @@ fi
 
 
 %changelog
+* Sat Jan 27 2018 Leigh Scott <leigh123linux@googlemail.com> - 2.0.1-1
+- Update to 2.0.1
+
 * Sat Jan 27 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.7.24-13
 - Rebuild for new libcdio
 - Clean up spec file
