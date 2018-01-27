@@ -1,20 +1,22 @@
 Summary: VideoCD (pre-)mastering and ripping tool
 Name: vcdimager
 Version: 0.7.24
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPLv2+
 Group: Applications/Multimedia
 URL: http://www.gnu.org/software/vcdimager/
 Source: ftp://ftp.gnu.org/pub/gnu/vcdimager/vcdimager-%{version}.tar.gz
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
-Requires: %{name}-libs = %{version}-%{release}
-Requires(post): info
-Requires(preun): info
+
 BuildRequires: libcdio-devel >= 0.72
 BuildRequires: libxml2-devel >= 2.3.8
 BuildRequires: zlib-devel
 BuildRequires: pkgconfig >= 0.9
 BuildRequires: popt-devel
+
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
+Requires(post): info
+Requires(preun): info
+
 
 %description
 VCDImager allows you to create VideoCD BIN/CUE CD images from MPEG
@@ -28,9 +30,6 @@ information about a VideoCD.
 %package libs
 Summary:        Libraries for %{name}
 Group:          System Environment/Libraries
-Requires:       %{name} = %{version}-%{release}
-# Introduced in F-9 to solve multilibs transition
-Obsoletes:      vcdimager < 0.7.23-8
 
 %description libs
 The %{name}-libs package contains shared libraries for %{name}.
@@ -38,7 +37,7 @@ The %{name}-libs package contains shared libraries for %{name}.
 %package devel
 Summary: Header files and library for VCDImager
 Group: Development/Libraries
-Requires: %{name}-libs = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: pkgconfig
 Requires: libcdio-devel
 
@@ -57,20 +56,15 @@ applications that will use VCDImager.
 
 %build
 %configure --disable-static --disable-dependency-tracking
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-rm -rf %{buildroot}
-make DESTDIR=%{buildroot} install INSTALL="install -p"
+%make_install
 find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 # Sometimes this file gets created... but we don't want it!
 rm -f %{buildroot}%{_infodir}/dir
-
-
-%clean
-rm -rf %{buildroot}
 
 
 %post libs -p /sbin/ldconfig
@@ -92,9 +86,9 @@ fi
 
 
 %files
-%defattr(-,root,root,-)
-%doc AUTHORS BUGS ChangeLog* COPYING FAQ NEWS README THANKS TODO
+%doc AUTHORS BUGS ChangeLog* FAQ NEWS README THANKS TODO
 %doc frontends/xml/videocd.dtd
+%license COPYING
 %{_bindir}/*
 %{_infodir}/vcdxrip.info*
 %{_infodir}/vcdimager.info*
@@ -102,11 +96,9 @@ fi
 %{_mandir}/man1/*
 
 %files libs
-%defattr(-,root,root,-)
 %{_libdir}/libvcdinfo.so.*
 
 %files devel
-%defattr(-,root,root,-)
 %doc HACKING
 %{_includedir}/libvcd/
 %{_libdir}/libvcdinfo.so
@@ -114,6 +106,10 @@ fi
 
 
 %changelog
+* Sat Jan 27 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.7.24-13
+- Rebuild for new libcdio
+- Clean up spec file
+
 * Thu Aug 31 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.7.24-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
