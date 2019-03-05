@@ -12,6 +12,7 @@ BuildRequires: libxml2-devel >= 2.3.8
 BuildRequires: zlib-devel
 BuildRequires: pkgconfig >= 0.9
 BuildRequires: popt-devel
+BuildRequires: gcc-c++
 
 Requires:        %{name}-libs%{?_isa} = %{version}-%{release}
 Requires(post):  info
