@@ -1,7 +1,7 @@
 Summary: VideoCD (pre-)mastering and ripping tool
 Name:    vcdimager
 Version: 2.0.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPLv2+
 Group:   Applications/Multimedia
 URL:     http://www.gnu.org/software/vcdimager/
@@ -107,6 +107,9 @@ fi
 
 
 %changelog
+* Wed Feb 09 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 2.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
 * Tue Aug 03 2021 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 2.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
